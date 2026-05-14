@@ -11,8 +11,8 @@ const routes = {
                 <h1>Vakmanschap in de Randstad</h1>
                 <p>Temmer Werk realiseert hoogwaardige badkamer- en keukenrenovaties in <strong>Amsterdam, Rotterdam, Utrecht en Den Haag</strong>.</p>
                 <div class="cta-group">
-                    <a href="/diensten" data-link class="btn-primary">Bekijk onze diensten</a>
-                    <a href="/contact" data-link class="btn-secondary">Gratis offerte</a>
+                    <a href="${homeUrl}/diensten" data-link class="btn-primary">Bekijk onze diensten</a>
+                    <a href="${homeUrl}/contact" data-link class="btn-secondary">Gratis offerte</a>
                 </div>
             </section>
             
