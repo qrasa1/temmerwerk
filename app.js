@@ -1,9 +1,10 @@
 const phoneNumber = "0638088187";
 const emailAddress = "smh755666@gmail.com";
+const homeUrl = "/temmerwerk";
 
 
 const routes = {
-    "/": {
+    [homeUrl]: {
         title: "Temmer Werk | Renovatie Specialist Randstad",
         render: () => `
             <section class="hero-section">
@@ -34,7 +35,7 @@ const routes = {
             </section>
         `
     },
-    "/over": {
+    [`${homeUrl}/over`]: {
         title: "Over Temmer Werk | Uw vakman in de regio",
         render: () => `
             <section class="content-page">
@@ -44,7 +45,7 @@ const routes = {
             </section>
         `
     },
-    "/diensten": {
+    [`${homeUrl}/diensten`]: {
         title: "Diensten - Badkamers, Keukens & Tuinen",
         render: () => `
             <section class="content-page">
@@ -66,7 +67,7 @@ const routes = {
             </section>
         `
     },
-    "/contact": {
+    [`${homeUrl}/contact`]: {
         title: "Contact - Temmer Werk Randstad",
         render: () => `
             <section class="content-page">
@@ -97,7 +98,7 @@ const routes = {
 
 const router = () => {
     const path = window.location.pathname;
-    const route = routes[path] || routes["/"];
+    const route = routes[path] || routes[homeUrl];
     
     document.title = route.title;
     document.getElementById("app").innerHTML = route.render();
