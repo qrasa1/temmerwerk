@@ -1,18 +1,34 @@
 const phoneNumber = "0638088187";
 const emailAddress = "smh755666@gmail.com";
-const homeUrl = "/temmerwerk";
 
+const projectImages = [
+    "images/image01.jpg",
+    "images/image02.jpg",
+    "images/image03.jpg",
+    "images/image04.jpg",
+];
+
+
+const gallery = `
+        <div class="gallery-grid">
+            ${projectImages.map(src => `
+                <div class="gallery-item">
+                    <img src="${src}" alt="Gerealiseerd werk Temmer Werk" loading="lazy">
+                </div>
+            `).join('')}
+        </div>
+    `;
 
 const routes = {
-    [homeUrl]: {
+    "home": {
         title: "Temmer Werk | Renovatie Specialist Randstad",
         render: () => `
             <section class="hero-section">
                 <h1>Vakmanschap in de Randstad</h1>
                 <p>Temmer Werk realiseert hoogwaardige badkamer- en keukenrenovaties in <strong>Amsterdam, Rotterdam, Utrecht en Den Haag</strong>.</p>
                 <div class="cta-group">
-                    <a href="${homeUrl}/diensten" data-link class="btn-primary">Bekijk onze diensten</a>
-                    <a href="${homeUrl}/contact" data-link class="btn-secondary">Gratis offerte</a>
+                    <a href="?page=diensten" data-link class="btn-primary">Bekijk onze diensten</a>
+                    <a href="?page=contact" data-link class="btn-secondary">Gratis offerte</a>
                 </div>
             </section>
             
@@ -35,7 +51,7 @@ const routes = {
             </section>
         `
     },
-    [`${homeUrl}/over`]: {
+    "over": {
         title: "Over Temmer Werk | Uw vakman in de regio",
         render: () => `
             <section class="content-page">
@@ -45,7 +61,7 @@ const routes = {
             </section>
         `
     },
-    [`${homeUrl}/diensten`]: {
+    "diensten": {
         title: "Diensten - Badkamers, Keukens & Tuinen",
         render: () => `
             <section class="content-page">
@@ -67,7 +83,17 @@ const routes = {
             </section>
         `
     },
-    [`${homeUrl}/contact`]: {
+    "werk": {
+        title: "Gerealiseerd Werk | Fotogalerij Temmer Werk",
+        render: () => `
+            <section class="content-page">
+                <h2>Ons Gerealiseerde Werk</h2>
+                <p class="section-desc">Bekijk hieronder foto's van recente projecten die wij met trots hebben afgerond in de regio.</p>
+                ${gallery}
+            </section>
+        `
+    },
+    "contact": {
         title: "Contact - Temmer Werk Randstad",
         render: () => `
             <section class="content-page">
@@ -82,13 +108,13 @@ const routes = {
                             <li>📍 Utrecht</li>
                             <li>📍 Den Haag</li>
                         </ul>
-                        <p><em>Woon u net buiten deze steden? Neem gerust contact op voor de mogelijkheden.</em></p>
+                        <p><em>Woont u net buiten deze steden? Neem gerust contact op voor de mogelijkheden.</em></p>
                     </div>
                     <div class="contact-card">
                         <h4>Contactgegevens</h4>
                         <p>📞 <a href="tel:${phoneNumber}">${phoneNumber}</a></p>
                         <p>📧 <a href="mailto:${emailAddress}">${emailAddress}</a></p>
-                        <p>💬 <a href="https://wa.me/${phoneNumber}">WhatsApp ons direct</a></p>
+                        <p>💬 <a href="https://wa.me/31${phoneNumber.substring(1)}">WhatsApp ons direct</a></p>
                     </div>
                 </div>
             </section>
@@ -97,24 +123,32 @@ const routes = {
 };
 
 const router = () => {
-    const path = window.location.pathname;
-    const route = routes[path] || routes[homeUrl];
-    
+    const urlParams = new URLSearchParams(window.location.search);
+    const page = urlParams.get('page') || 'home';
+
+    const route = routes[page] || routes['home'];
+
     document.title = route.title;
     document.getElementById("app").innerHTML = route.render();
+    window.scrollTo(0, 0);
 };
 
 window.addEventListener("click", e => {
-    if (e.target.matches("[data-link]")) {
+    const link = e.target.closest("[data-link]");
+    if (link) {
         e.preventDefault();
-        document.getElementById("menu-toggle").checked = false;
-        history.pushState(null, null, e.target.href);
+
+        const menuToggle = document.getElementById("menu-toggle");
+        if (menuToggle) menuToggle.checked = false;
+
+        history.pushState(null, null, link.getAttribute("href"));
         router();
     }
 });
 
 window.addEventListener("popstate", router);
 window.addEventListener("DOMContentLoaded", router);
+
 window.addEventListener("DOMContentLoaded", () => {
     document.getElementById("footer-phone").href = `tel:${phoneNumber}`;
     document.getElementById("footer-email").href = `mailto:${emailAddress}`;
