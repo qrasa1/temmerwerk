@@ -8,6 +8,39 @@ const projectImages = [
     "images/image04.jpg",
 ];
 
+const injectLocalBusinessSchema = () => {
+    const schema = {
+        "@context": "https://schema.org",
+        "@type": "HomeAndConstructionBusiness",
+        "name": "Temmer Werk",
+        "description": "Gespecialiseerd in timmerwerk, badkamer- en keukenrenovatie in Amsterdam, Rotterdam, Utrecht en Den Haag.",
+        "telephone": phoneNumber,
+        "email": emailAddress,
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Rotterdam",
+            "addressRegion": "Zuid-Holland",
+            "addressCountry": "NL"
+        },
+        "areaServed": [
+            { "@type": "City", "name": "Rotterdam" },
+            { "@type": "City", "name": "Amsterdam" },
+            { "@type": "City", "name": "Utrecht" },
+            { "@type": "City", "name": "Den Haag" }
+        ],
+        "priceRange": "$$"
+    };
+
+    let scriptTag = document.getElementById('seo-schema');
+    if (!scriptTag) {
+        scriptTag = document.createElement('script');
+        scriptTag.id = 'seo-schema';
+        scriptTag.type = 'application/ld+json';
+        document.head.appendChild(scriptTag);
+    }
+    scriptTag.text = JSON.stringify(schema);
+};
+
 
 const gallery = `
         <div class="gallery-grid">
@@ -21,11 +54,12 @@ const gallery = `
 
 const routes = {
     "home": {
-        title: "Temmer Werk | Renovatie Specialist Randstad",
+        title: "Temmer Werk | Timmer & Renovatie Specialist Randstad",
+        description: "Op zoek naar een vakkundige timmer- of renovatiespecialist? Temmer Werk realiseert badkamers, keukens en schilderwerk in Rotterdam, Amsterdam, Utrecht en Den Haag.",
         render: () => `
             <section class="hero-section">
-                <h1>Vakmanschap in de Randstad</h1>
-                <p>Temmer Werk realiseert hoogwaardige badkamer- en keukenrenovaties in <strong>Amsterdam, Rotterdam, Utrecht en Den Haag</strong>.</p>
+                <h1>Vakmanschap & Timmerwerk in de Randstad</h1>
+                <p>Temmer Werk is uw ervaren partner voor hoogwaardig <strong>timmerwerk</strong>, badkamerinstallaties en keukenrenovaties in <strong>Amsterdam, Rotterdam, Utrecht en Den Haag</strong>.</p>
                 <div class="cta-group">
                     <a href="?page=diensten" data-link class="btn-primary">Bekijk onze diensten</a>
                     <a href="?page=contact" data-link class="btn-secondary">Gratis offerte</a>
@@ -41,6 +75,10 @@ const routes = {
 
             <section class="features">
                 <div class="feature">
+                    <h3>Allround Timmerwerk</h3>
+                    <p>Van kasten op maat tot complete zolderbergingen. Wij leveren strak timmerwerk dat perfect past.</p>
+                </div>
+                <div class="feature">
                     <h3>Ervaring in de Stad</h3>
                     <p>Wij zijn bekend met de specifieke uitdagingen van stadswoningen, van monumentale panden in Utrecht tot moderne appartementen in Rotterdam.</p>
                 </div>
@@ -52,56 +90,60 @@ const routes = {
         `
     },
     "over": {
-        title: "Over Temmer Werk | Uw vakman in de regio",
+        title: "Over Temmer Werk | Professioneel Timmerbedrijf",
+        description: "Maak kennis met Temmer Werk. Wij combineren traditioneel timmerwerk met moderne renovatietechnieken voor uw badkamer, keuken of zolder.",
         render: () => `
             <section class="content-page">
                 <h2>Over Temmer Werk</h2>
-                <p>Temmer Werk is de specialist voor iedereen die op zoek is naar kwaliteit in de vier grote steden. Wij combineren traditioneel vakmanschap met moderne technieken.</p>
-                <p>Of u nu een extra berging wilt op een zolder in Amsterdam of uw badkamer in Den Haag wilt vernieuwen: wij leveren maatwerk dat past bij de stijl van uw woning.</p>
+                <p>Temmer Werk is de specialist voor iedereen die op zoek is naar kwaliteit en betrouwbaar <strong>timmerwerk</strong> in de vier grote steden. Wij combineren traditioneel vakmanschap met moderne technieken.</p>
+                <p>Of u nu een extra berging wilt op een zolder in Amsterdam of uw badkamerraam en wastafel in Den Haag wilt vernieuwen: wij leveren maatwerk dat past bij de stijl van uw woning.</p>
             </section>
         `
     },
     "diensten": {
-        title: "Diensten - Badkamers, Keukens & Tuinen",
+        title: "Onze Diensten | Timmerwerk, Badkamers & Keukens",
+        description: "Ontdek onze specialisaties: van op maat gemaakte opslagruimtes en timmerwerk op zolder tot complete badkamerrenovaties, schilderwerk en tuinen.",
         render: () => `
             <section class="content-page">
-                <h2>Onze Specialisaties</h2>
+                <h2>Onze Specialisaties & Timmerwerk</h2>
                 <div class="services-grid">
                     <article class="service-detail">
                         <h3>Badkamer & Sanitair</h3>
-                        <p>Installatie van wastafels, douchecabines en ramen. Wij maken uw badkamer in Rotterdam of Utrecht weer als nieuw.</p>
+                        <p>Professionele installatie van wastafels, douchecabines en ramen. Wij maken uw badkamer in Rotterdam of Utrecht weer als nieuw.</p>
                     </article>
                     <article class="service-detail">
-                        <h3>Slimme Opslag</h3>
-                        <p>In de stad is ruimte schaars. Wij bouwen kastenwanden op zolders en extra bergruimte in keukens door heel Amsterdam.</p>
+                        <h3>Maatwerk Timmerwerk & Opslag</h3>
+                        <p>In de stad is ruimte schaars. Wij voeren strak <strong>timmerwerk</strong> uit voor kastenwanden op zolders (knieschotten) en extra slimme bergruimte in keukens door heel Amsterdam.</p>
                     </article>
                     <article class="service-detail">
-                        <h3>Schilderwerk & Tuin</h3>
-                        <p>Van strak schilderwerk in Den Haag tot een complete tuinrenovatie. Wij verzorgen het totale plaatje.</p>
+                        <h3>Schilderwerk & Tuinrenovatie</h3>
+                        <p>Van strak binnenschilderwerk en buitenschilderwerk in Den Haag tot een complete tuinrenovatie met houtbouw en bestrating.</p>
                     </article>
                 </div>
             </section>
         `
     },
     "werk": {
-        title: "Gerealiseerd Werk | Fotogalerij Temmer Werk",
+        title: "Gerealiseerd Werk & Projecten | Temmer Werk",
+        description: "Bekijk foto's van ons gemaakte werk. Hoogwaardig timmerwerk, schilderwerk en badkamerinstallaties in de praktijk.",
         render: () => `
             <section class="content-page">
                 <h2>Ons Gerealiseerde Werk</h2>
-                <p class="section-desc">Bekijk hieronder foto's van recente projecten die wij met trots hebben afgerond in de regio.</p>
+                <p class="section-desc">Bekijk hieronder foto's van recente timmer- en renovatieprojecten die wij met trots hebben afgerond in de regio.</p>
                 ${gallery}
             </section>
         `
     },
     "contact": {
-        title: "Contact - Temmer Werk Randstad",
+        title: "Contact & Offerte | Temmer Werk Timmerbedrijf",
+        description: "Neem direct contact op met Temmer Werk voor een vrijblijvende offerte voor timmerwerk of renovatie in de Randstad.",
         render: () => `
             <section class="content-page">
-                <h2>Neem contact op</h2>
+                <h2>Neem contact op voor een offerte</h2>
                 <div class="contact-grid">
                     <div class="contact-card">
                         <h4>Werkgebied</h4>
-                        <p>Wij zijn dagelijks werkzaam in:</p>
+                        <p>Wij zijn dagelijks actief als timmerman en renovatiespecialist in:</p>
                         <ul class="city-list">
                             <li>📍 Rotterdam</li>
                             <li>📍 Amsterdam</li>
@@ -125,10 +167,18 @@ const routes = {
 const router = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const page = urlParams.get('page') || 'home';
-
     const route = routes[page] || routes['home'];
 
     document.title = route.title;
+
+    let metaDesc = document.querySelector('meta[name="description"]');
+    if (!metaDesc) {
+        metaDesc = document.createElement('meta');
+        metaDesc.name = 'description';
+        document.head.appendChild(metaDesc);
+    }
+    metaDesc.content = route.description;
+
     document.getElementById("app").innerHTML = route.render();
     window.scrollTo(0, 0);
 };
@@ -147,10 +197,11 @@ window.addEventListener("click", e => {
 });
 
 window.addEventListener("popstate", router);
-window.addEventListener("DOMContentLoaded", router);
-
 window.addEventListener("DOMContentLoaded", () => {
+    router();
+    injectLocalBusinessSchema();
     document.getElementById("footer-phone").href = `tel:${phoneNumber}`;
     document.getElementById("footer-email").href = `mailto:${emailAddress}`;
     document.getElementById("footer-whatsapp").href = `https://wa.me/${phoneNumber}`;
+    injectLocalBusinessSchema();
 });
